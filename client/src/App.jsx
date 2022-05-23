@@ -7,76 +7,117 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import NavBar from './components/NavBar';
 
+
 import UserPage from './pages/UserPage';
+import Content from './components/Content';
+import Sidebar from './components/Sidebar';
+import CreateClient from './components/CreateClient';
 
 
 
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+    
+      nombre: "",
+     
+     
+      clientes: [],
+     
+   
+
+    }
+  }
+
+
+
+
+  apiCall(url, consecuencia) {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => consecuencia(data))
+      .catch(error => console.log(error))
+  }
+
+
+  componentDidMount () {
+    console.log("me monte");
+    this.consumirApi();
+    
+   
+    
+
+
+  }
+
   consumirApi() {
     this.apiCall("http://localhost:3000/api", this.mostrarGif);
-    this.apiCall("http://localhost:3000/api/users", this.mostrarUsuarios);
+   
 
   }
 
   mostrarGif = (data) => {
 
     this.setState({
-      productos: data,
-      nombre: data[0].name,
+      clientes: data,
+      nombre: data[0].nombre,
 
-      lastProduct: data
+      
 
     })
-    console.log(this.state.nombre);
+   
 
-
-
-    console.log(this.state.productos)
-    console.log("soy el primer usuarii0" + this.state.nombre)
+    
+ 
     
   }
 
 
-  mostrarUsuarios = (data2) => {
-    console.log(data2)
-    this.setState({
-      usuarios: data2,
-      nombredeuser: data2[0].name
-
-    })
+  
 
 
-  }
 
+
+
+ 
 
   render() {
 
-    let listProducts;
-    let imagen;
+    
 
-    listProducts = this.state.productos.map((producto) => {
-      console.log(producto.name);
-     
+    let listaClientes;
+
+    listaClientes = this.state.clientes.map((cliente) => {
+    
+   
       return (
-        <tr  className="columnaProduct">
-          <td ><div className="thumContainer"><img className="thumProduct" src={imagen} alt="" /></div></td>
-          <td >{producto.name}</td>
-          <td >${producto.price}</td>
-          <td >{producto.categoryProductsId}</td>
-          <td ><button type="button" className="btn-editar"><ion-icon name="create-outline"></ion-icon></button></td>
-          <td ><button type="button" className="btn-eliminar"><ion-icon name="trash-outline"></ion-icon></button></td>
-        </tr>
+        
+         
+          <span>{cliente.nombre}</span>
+        
+       
       )
-    });
+    }
 
+    
+    )
   
 
 
     return(
         <BrowserRouter>
-           <NavBar/>
+           
+
+           <Sidebar/>
+
+
+           
+          
+           
+
 
            
          <Routes>
@@ -85,9 +126,22 @@ class App extends Component {
           <Route path='/about' element={<AboutPage/>} />
           <Route path='/users' element={<UsersPage/>} />
           <Route path='/user/:id' element={<UserPage/>} />
+          <Route path='/createclient/' element={<CreateClient/>} />
+          
           <Route path='*' element={<NotFoundPage/>} />
 
+
+
+
          </Routes>
+
+         
+         <p>hola</p>
+
+     <div>{listaClientes}</div>
+
+
+       <Content/>
     
         </BrowserRouter>
     )
