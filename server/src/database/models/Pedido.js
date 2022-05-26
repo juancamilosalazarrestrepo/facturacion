@@ -24,8 +24,8 @@ module.exports = (sequelize,dataTypes) => {
 
     const Pedido = sequelize.define(alias,cols,config);
     Pedido.associate = function(models){
-        Pedido.hasMany(models.Producto,{
-            as: "Producto",
+        Pedido.belongsTo(models.Producto,{
+            as: "producto",
             foreignKey: "idproductos"
         }),
         Pedido.belongsToMany(models.Cliente,{

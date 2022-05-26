@@ -12,6 +12,7 @@ import UserPage from './pages/UserPage';
 import Content from './components/Content';
 import Sidebar from './components/Sidebar';
 import CreateClient from './components/CreateClient';
+import TopBar from './components/TopBar';
 
 
 
@@ -96,7 +97,7 @@ class App extends Component {
       return (
         
          
-          <span>{cliente.nombre}</span>
+          <span>{cliente.nombre}<br/></span>
         
        
       )
@@ -138,7 +139,14 @@ class App extends Component {
          
          <p>hola</p>
 
-     <div>{listaClientes}</div>
+     <div className='main'>
+       <TopBar/>
+        <div className='cardbox'>
+        {listaClientes}
+        </div>
+
+      
+       </div>
 
 
        <Content/>

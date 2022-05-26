@@ -19,7 +19,7 @@ apiCtrl.getClienteByID = async (req,res)=>{
     const cliente = await Cliente.findByPk(id,{
         include:[{association:"pedidos"}]
     });
-    
+
     const clientesJson = JSON.stringify(cliente);
     res.json(cliente);
 
@@ -28,7 +28,9 @@ apiCtrl.getClienteByID = async (req,res)=>{
 
 apiCtrl.getProductos= async (req,res)=>{
 
-    const productos = await Producto.findAll();
+    const productos = await Producto.findAll(
+        
+    );
     const productosJson = JSON.stringify(productos);
     res.json(productos);
 
@@ -48,7 +50,25 @@ apiCtrl.getFacturas= async (req,res)=>{
 
 apiCtrl.getPedidos= async (req,res)=>{
 
-    const pedidos = await Pedido.findAll();
+    const pedidos = await Pedido.findAll(
+        
+        {
+            include:[{association:"producto"}]
+        }
+    );
+    const pedidosJson = JSON.stringify(pedidos);
+    res.json(pedidos);
+
+}
+
+apiCtrl.getPedidosByID= async (req,res)=>{
+
+    const pedidos = await Pedido.findByPk(
+        
+        {
+            include:[{association:"producto"}]
+        }
+    );
     const pedidosJson = JSON.stringify(pedidos);
     res.json(pedidos);
 
