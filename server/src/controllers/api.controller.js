@@ -1,10 +1,10 @@
-const {Cliente} = require('../database/models');
+const {Cliente,Producto} = require('../database/models');
 
-const clientesCtrl = {}
+const apiCtrl = {}
 
 
 
-clientesCtrl.getClientes = async (req,res)=>{
+apiCtrl.getClientes = async (req,res)=>{
 
     const clientes = await Cliente.findAll();
     const clientesJson = JSON.stringify(clientes);
@@ -13,6 +13,15 @@ clientesCtrl.getClientes = async (req,res)=>{
 }
 
 
+apiCtrl.getProductos= async (req,res)=>{
+
+    const productos = await Producto.findAll();
+    const productosJson = JSON.stringify(productos);
+    res.json(productos);
+
+}
 
 
-module.exports = clientesCtrl;
+
+
+module.exports = apiCtrl;

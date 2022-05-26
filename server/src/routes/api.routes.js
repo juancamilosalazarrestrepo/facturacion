@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getClientes} = require('../controllers/api.controller');
+const {getClientes,getProductos} = require('../controllers/api.controller');
 
 const usuario = {
     nombre:'Juan',
@@ -9,6 +9,8 @@ const usuario = {
 }
 
 router.get('/',getClientes);
+router.get('/productos',getProductos);
+
 
 /*
 router.get('/bicicletas',getAllbicicle);
