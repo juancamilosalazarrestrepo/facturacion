@@ -23,7 +23,19 @@ module.exports = (sequelize,dataTypes) => {
     }
 
     const Pedido = sequelize.define(alias,cols,config);
-   
+    Pedido.associate = function(models){
+        Pedido.hasMany(models.Producto,{
+            as: "Producto",
+            foreignKey: "idproductos"
+        }),
+        Pedido.belongsToMany(models.Cliente,{
+            as:'clientes',
+            through:'cliente_pedidos',
+            foreignKey:'idpedidos',
+            otherKey:'idclientes',
+            timestamps:false,
+        })
+    }
    
 
     return Pedido;

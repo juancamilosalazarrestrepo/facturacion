@@ -17,12 +17,21 @@ module.exports = (sequelize,dataTypes) => {
         }
     };
     let config = {
-        FOREIGN_KEY_CHECKS: 0,
         timestamps: false,
         deletedAt: false,
     }
 
     const Factura = sequelize.define(alias,cols,config);
+
+    Factura.associate = function(models) {
+        Factura.belongsTo(models.Cliente,{
+           as: "cliente",
+           foreignKey:"idclientes"
+        })
+
+       
+
+    }
    
    
 

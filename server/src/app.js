@@ -88,6 +88,10 @@ app.use('/api', apiRoutes);
 app.use('/adminusers',adminUserRouter);
 
 
+let array= [1,2,3,4,5];
+var json = JSON.stringify(array);
+console.log(json);
+
 //Servidor
 app.listen(process.env.PORT || 3000, () =>console.log("Servidor Corriendo en Puerto 3000"));
 

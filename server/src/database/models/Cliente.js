@@ -14,14 +14,27 @@ module.exports = (sequelize,dataTypes) => {
         }
     };
     let config = {
-        FOREIGN_KEY_CHECKS: 0,
+        
         timestamps: false,
         deletedAt: false,
     }
 
     const Cliente = sequelize.define(alias,cols,config);
    
-   
+    Cliente.associate = function(models) {
+        Cliente.hasMany(models.Factura,{
+           as: "factura",
+           foreignKey:"idclientes"
+        }),
+        Cliente.belongsToMany(models.Pedido,{
+            as:'pedidos',
+            through:'cliente_pedidos',
+            foreignKey:'idclientes',
+            otherKey:'idpedidos',
+            timestamps:false,
+        })
+        
+    }
 
     return Cliente;
 }
