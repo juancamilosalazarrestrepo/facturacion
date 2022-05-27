@@ -11,7 +11,7 @@ class Content extends Component {
     
     return (
       <div>
-         <span>hola</span>
+         
       </div>
     )
   }

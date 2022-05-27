@@ -112,10 +112,9 @@ class App extends Component {
         <BrowserRouter>
            
 
-           <Sidebar/>
+        
 
-
-           
+          <Sidebar/>   
           
            
 
@@ -123,13 +122,10 @@ class App extends Component {
            
          <Routes>
 
-          <Route path='/' element={<HomePage/>} />
-          <Route path='/about' element={<AboutPage/>} />
-          <Route path='/users' element={<UsersPage/>} />
-          <Route path='/user/:id' element={<UserPage/>} />
+          
           <Route path='/createclient/' element={<CreateClient/>} />
           
-          <Route path='*' element={<NotFoundPage/>} />
+         
 
 
 
@@ -137,11 +133,11 @@ class App extends Component {
          </Routes>
 
          
-         <p>hola</p>
 
      <div className='main'>
        <TopBar/>
         <div className='cardbox'>
+          
         {listaClientes}
         </div>
 

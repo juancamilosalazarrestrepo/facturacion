@@ -63,14 +63,14 @@ apiCtrl.getPedidos= async (req,res)=>{
 
 apiCtrl.getPedidosByID= async (req,res)=>{
 
-    const pedidos = await Pedido.findByPk(
+    const pedido = await Pedido.findByPk(
         
         {
             include:[{association:"producto"}]
         }
     );
-    const pedidosJson = JSON.stringify(pedidos);
-    res.json(pedidos);
+    const pedidosJson = JSON.stringify(pedido);
+    res.json(pedido);
 
 }
 
