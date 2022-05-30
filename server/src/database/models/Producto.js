@@ -11,10 +11,13 @@ module.exports = (sequelize,dataTypes) => {
         },
         descripcion: {
             type: dataTypes.STRING(255)
+        },
+        precio: {
+            type: dataTypes.REAL
         }
     };
     let config = {
-        FOREIGN_KEY_CHECKS: 0,
+        
         timestamps: false,
         deletedAt: false,
     }

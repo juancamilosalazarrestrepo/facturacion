@@ -11,6 +11,12 @@ module.exports = (sequelize,dataTypes) => {
         },
         apellido: {
             type: dataTypes.STRING(255)
+        },
+        cedula: {
+            type: dataTypes.STRING(255)
+        },
+        celular: {
+            type: dataTypes.STRING(255)
         }
     };
     let config = {

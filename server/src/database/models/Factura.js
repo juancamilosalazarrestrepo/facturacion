@@ -27,7 +27,11 @@ module.exports = (sequelize,dataTypes) => {
         Factura.belongsTo(models.Cliente,{
            as: "cliente",
            foreignKey:"idclientes"
-        })
+        }),
+        Factura.belongsTo(models.Pedido,{
+            as: "pedido",
+            foreignKey:"idpedidos"
+         })
 
        
 

@@ -1,17 +1,20 @@
+
 import './content.css';
 import { Component } from 'react';
 
 
 
-class Productos extends Component {
+class Clientes extends Component {
     constructor(props) {
         super(props);
         this.state = {
     
-          nombreproducto: "",
-          descripcion:"",
-          precio:0,
-          productos: []
+          nombre: "",
+          apellido:"",
+          cedula:"",
+          telefono:"",
+    
+          clientes: [],
     
     
     
@@ -35,24 +38,21 @@ class Productos extends Component {
     
     
       }
-
-      componentDidUpdate() {
-
-          
-
-    }
     
       consumirApi() {
-        this.apiCall("http://localhost:3000/api/productos", this.mostrarProductos);
+        this.apiCall("http://localhost:3000/api", this.mostrarClientes);
+    
+    
       }
     
-      mostrarProductos = (data) => {
-        console.log("this is data"+ data)
+      mostrarClientes = (data) => {
+        console.log("this is data"+data)
         this.setState({
-          productos: data,
-          nombreproducto: data[0].nombreproducto,
-          descripcion: data[0].descripcion,
-          precio: data[0].precio
+          clientes: data,
+          nombre: data[0].nombre,
+          apellido: data[0].apellido,
+          cedula: data[0].cedula,
+          celular: data[0].celular
     
     
     
@@ -61,18 +61,24 @@ class Productos extends Component {
 
     render() {
           
-        let listaProductos;
-        listaProductos = this.state.productos.map((producto) => {
+        let listaClientes;
+        listaClientes = this.state.clientes.map((cliente) => {
     
    
             return (
          <tr  className="columnaProduct">
-          <td >{producto.nombreproducto}</td>
-          <td >{producto.descripcion}</td>
-          <td >{producto.precio}</td>
+          <td >{cliente.nombre}</td>
+          <td >{cliente.apellido}</td>
+          <td >{cliente.cedula}</td>
+          <td >{cliente.celular}</td>
           <td ><button type="button" className="btn-editar"><ion-icon name="create-outline"></ion-icon></button></td>
           <td ><button type="button" className="btn-eliminar"><ion-icon name="trash-outline"></ion-icon></button></td>
-        </tr>    
+        </tr>
+              
+               
+              
+              
+             
             )
           });
     
@@ -84,23 +90,24 @@ class Productos extends Component {
         <div className="lista">
               <div className="cardHeader">
                 <h2>
-                  Todos los Productos
+                  Todos los Clientes
                 </h2>
                 <a href="/" className='btn'>Ver todos </a>
               </div>
               <table>
                 <thead>
                   <tr>
-                    <td>Nombre del producto</td>
-                    <td>descripcion</td>
-                    <td>Precio</td>
+                  <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Cedula</td>
+                    <td>Telefono</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
                   </tr>
                 </thead>
                 <tbody>
                   
-                  {listaProductos}
+                  {listaClientes}
 
                 </tbody>
               </table>
@@ -112,5 +119,5 @@ class Productos extends Component {
 
 }
 
-export default Productos;
+export default Clientes;
   

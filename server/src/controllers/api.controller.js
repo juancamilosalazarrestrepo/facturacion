@@ -36,11 +36,13 @@ apiCtrl.getProductos= async (req,res)=>{
 
 }
 
+ // obtener facturas
+ 
 apiCtrl.getFacturas= async (req,res)=>{
 
     const facturas = await Factura.findAll(
         {
-            include: [{association: "cliente"}]
+            include: [{association: "cliente"},{association: "pedido"}]
         }
     );
     const facturasJson = JSON.stringify(facturas);
@@ -77,10 +79,12 @@ apiCtrl.getPedidosByID= async (req,res)=>{
 apiCtrl.createCliente= async (req,res)=>{
 try{
 
-    const { nombre, apellido} = req.body;
+    const { nombre, apellido, cedula, celular} = req.body;
     await Cliente.create({
         nombre,
-        apellido 
+        apellido,
+        cedula,
+        celular
     });
     
     return res.send("correcto");
@@ -92,7 +96,30 @@ try{
 
 }
 
+apiCtrl.crearProducto= async (req,res)=>{
+    try{
+    
+        const { nombreproducto, descripcion, precio} = req.body;
+        await Producto.create({
+            nombreproducto,
+            descripcion,
+            precio //utilizar un convertidos de string a real
+            
+        });
+        
+        return res.send("correcto");
+    }catch (error) {
+        return res.send(error);
+    }
+        
+       
+    
+    }
 
+
+   
+
+   //------------------------------------------------------------
 
 
 module.exports = apiCtrl;

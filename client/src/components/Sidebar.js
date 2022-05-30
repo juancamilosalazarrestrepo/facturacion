@@ -27,23 +27,23 @@ class Sidebar extends Component {
               </a>
             </li>
             <li>
-            <a >
-            <span className='icon'><ion-icon name="people-outline"></ion-icon></span>
-
-             <NavLink className={({isActive})=>isActive ? 'active' : ""} to="/createclient">Crear Cliente</NavLink>
+            <a>
+              <span className='icon'><ion-icon name="people-outline"></ion-icon></span>
+              <span className="title"><NavLink className={({isActive})=>isActive ? 'active' : ""} to="/crearcliente">Crear Cliente</NavLink></span>
+              
               </a>
               
             </li>
             <li>
               <a href="/">
                 <span className='icon'><ion-icon name="bicycle-outline"></ion-icon></span>
-                <span className="title">Lista de Productos</span>
+                <span className="title"><NavLink className={({isActive})=>isActive ? 'active' : ""} to="/productos">Lista de Productos</NavLink></span>
               </a>
             </li>
             <li>
               <a href="/">
                 <span className='icon'><ion-icon name="person-add-outline"></ion-icon></span>
-                <span className="title">Agregar Usuario</span>
+                <span className="title"> <NavLink className={({isActive})=>isActive ? 'active' : ""} to="/facturas">Facturas</NavLink></span>
               </a>
             </li>
             <li>

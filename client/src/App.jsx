@@ -1,18 +1,15 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Component } from 'react';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import UsersPage from './pages/UsersPage';
-import NotFoundPage from './pages/NotFoundPage';
 
-import NavBar from './components/NavBar';
-
-
-import UserPage from './pages/UserPage';
 import Content from './components/Content';
 import Sidebar from './components/Sidebar';
-import CreateClient from './components/CreateClient';
+
 import TopBar from './components/TopBar';
+import Clientes from './components/Clientes';
+import Crearcliente from './components/CrearCliente';
+import CrearProductos from './components/CrearProductos';
+import Productos from './components/Productos';
+import Facturas from './components/Facturas';
 
 
 
@@ -22,13 +19,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    
-      nombre: "",
-     
-     
-      clientes: [],
-     
-   
+
+      /* nombre: "",
+
+
+      clientes: [], */
+
+
 
     }
   }
@@ -36,7 +33,7 @@ class App extends Component {
 
 
 
-  apiCall(url, consecuencia) {
+  /* apiCall(url, consecuencia) {
     fetch(url)
       .then(response => response.json())
       .then(data => consecuencia(data))
@@ -44,19 +41,19 @@ class App extends Component {
   }
 
 
-  componentDidMount () {
+  componentDidMount() {
     console.log("me monte");
     this.consumirApi();
-    
-   
-    
+
+
+
 
 
   }
 
   consumirApi() {
     this.apiCall("http://localhost:3000/api", this.mostrarGif);
-   
+
 
   }
 
@@ -66,91 +63,70 @@ class App extends Component {
       clientes: data,
       nombre: data[0].nombre,
 
-      
-
-    })
-   
-
-    
- 
-    
-  }
 
 
-  
+    })}
+ */
 
 
 
 
 
- 
+
+
+
+
+
+
+
+
+
 
   render() {
 
-    
-
-    let listaClientes;
-
-    listaClientes = this.state.clientes.map((cliente) => {
-    
-   
-      return (
-        
-         
-          <span>{cliente.nombre}<br/></span>
-        
-       
-      )
-    }
-
-    
-    )
-  
-
-
-    return(
-        <BrowserRouter>
-           
-
-        
-
-          <Sidebar/>   
-          
-           
-
-
-           
-         <Routes>
-
-          
-          <Route path='/createclient/' element={<CreateClient/>} />
-          
-         
 
 
 
 
-         </Routes>
 
-         
+    return (
+      <BrowserRouter>
 
-     <div className='main'>
-       <TopBar/>
-        <div className='cardbox'>
-          
-        {listaClientes}
+
+
+
+        <Sidebar />
+
+
+
+
+        <div className='main'>
+          <TopBar />
+          <Routes>
+
+            <Route path='/clientes' element={<Clientes />} />
+            <Route path='/crearcliente/' element={<Crearcliente />} />
+            <Route path='/productos/' element={<CrearProductos />} />
+            <Route path='/facturas/' element={<Facturas />} />
+
+
+
+
+
+
+          </Routes>
+
         </div>
 
-      
-       </div>
 
 
-       <Content/>
-    
-        </BrowserRouter>
+
+        <Content />
+
+      </BrowserRouter>
     )
 
-}
+  }
 
 }
 

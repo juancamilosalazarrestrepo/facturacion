@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getClientes,getProductos, getFacturas, getPedidos, createCliente,getClienteByID} = require('../controllers/api.controller');
+const {getClientes,getProductos, getFacturas, getPedidos, createCliente,getClienteByID, crearProducto} = require('../controllers/api.controller');
 
 const usuario = {
     nombre:'Juan',
@@ -14,9 +14,9 @@ router.get('/productos',getProductos);
 router.get('/facturas',getFacturas);
 router.get('/pedidos',getPedidos);
 
-router.post('/createcliente',createCliente);
+router.post('/crearcliente',createCliente);
 
-
+router.post('/crearproducto',crearProducto);
 
 
 /*

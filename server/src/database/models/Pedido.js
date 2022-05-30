@@ -28,6 +28,10 @@ module.exports = (sequelize,dataTypes) => {
             as: "producto",
             foreignKey: "idproductos"
         }),
+        Pedido.hasMany(models.Factura,{
+            as: "factura",
+            foreignKey:"idpedidos"
+         }),
         Pedido.belongsToMany(models.Cliente,{
             as:'clientes',
             through:'cliente_pedidos',
