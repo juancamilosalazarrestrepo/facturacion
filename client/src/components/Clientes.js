@@ -38,15 +38,25 @@ class Clientes extends Component {
     
     
       }
+      componentDidUpdate() {
+        this.consumirApi();
+        
+    
+    
+    
+    
+    
+      }
     
       consumirApi() {
+        
         this.apiCall("http://localhost:3000/api", this.mostrarClientes);
     
     
       }
     
       mostrarClientes = (data) => {
-        console.log("this is data"+data)
+        
         this.setState({
           clientes: data,
           nombre: data[0].nombre,

@@ -14,6 +14,9 @@ module.exports = (sequelize,dataTypes) => {
         },
         valortotal: {
             type: dataTypes.REAL
+        },
+        numerofactura:{
+            type: dataTypes.INTEGER
         }
     };
     let config = {

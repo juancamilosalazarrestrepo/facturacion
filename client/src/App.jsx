@@ -10,6 +10,7 @@ import Crearcliente from './components/CrearCliente';
 import CrearProductos from './components/CrearProductos';
 import Productos from './components/Productos';
 import Facturas from './components/Facturas';
+import CrearFactura from './components/CrearFactura';
 
 
 
@@ -108,6 +109,7 @@ class App extends Component {
             <Route path='/crearcliente/' element={<Crearcliente />} />
             <Route path='/productos/' element={<CrearProductos />} />
             <Route path='/facturas/' element={<Facturas />} />
+            <Route path='/crearfactura/' element={<CrearFactura />} />
 
 
 

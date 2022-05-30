@@ -49,7 +49,7 @@ class Sidebar extends Component {
             <li>
               <a href="/">
                 <span className='icon'><ion-icon name="basketball-outline"></ion-icon></span>
-                <span className="title">Agregar Producto</span>
+                <span className="title"> <NavLink className={({isActive})=>isActive ? 'active' : ""} to="/crearfactura">Crear Factura</NavLink></span>
               </a>
             </li>
             <li>

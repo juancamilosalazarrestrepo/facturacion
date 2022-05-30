@@ -1,4 +1,4 @@
-import './content.css';
+import './facturas.css';
 import { Component } from 'react';
 
 
@@ -40,17 +40,17 @@ class Facturas extends Component {
         }
       }
 
-    apiCall(url, consecuencia) {
-        fetch(url)
+      async apiCall(url, consecuencia)  {
+        await fetch(url)
           .then(response => response.json())
           .then(data => consecuencia(data))
           .catch(error => console.log(error))
       }
     
     
-      componentDidMount() {
+      async componentDidMount() {
         console.log("me monte");
-        this.consumirApi();
+        await this.consumirApi();
     
     
     
@@ -58,14 +58,17 @@ class Facturas extends Component {
     
       }
     
-      consumirApi() {
-        this.apiCall("http://localhost:3000/api/facturas", this.mostrarFacturas);
-        this.apiCall("http://localhost:3000/api/", this.mostrarClientes);
-        this.apiCall("http://localhost:3000/api/pedidocliente", this.mostrarClientesPedidos);
+      consumirApi()  {
         this.apiCall("http://localhost:3000/api/productos", this.mostrarProductos);
+        this.apiCall("http://localhost:3000/api/pedidocliente", this.mostrarClientesPedidos);
+        this.apiCall("http://localhost:3000/api/",  this.mostrarClientes);
+        this.apiCall("http://localhost:3000/api/facturas", this.mostrarFacturas);
+        
+         
+        
       }
     
-      mostrarFacturas = (data) => {
+     mostrarFacturas =  (data) => {
         console.log("this is data"+data)
         this.setState({
           facturas: data,
@@ -74,7 +77,7 @@ class Facturas extends Component {
           valortotal: data[0].valortotal,
         })}
 
-        mostrarClientes = (data2) => {
+        mostrarClientes =   (data2) => {
             console.log("this is data"+data2)
             this.setState({
               clientes: data2,
@@ -87,8 +90,8 @@ class Facturas extends Component {
         
             })}
 
-            mostrarClientesPedidos = (data3) => {
-              console.log("this is data"+data3)
+            mostrarClientesPedidos =  (data3) => {
+             
               this.setState({
                 clientespedidos:data3,
                 idclientesCP: data3[0].idclientes,
@@ -97,7 +100,7 @@ class Facturas extends Component {
                 numerofactura:data3[0].numerofactura
               })}
 
-              mostrarProductos = (data4) => {
+              mostrarProductos =  (data4) => {
                 console.log("this is data"+ data4)
                 this.setState({
                   productos: data4,
@@ -110,7 +113,7 @@ class Facturas extends Component {
                 })}
     
 
-    render() {
+                render() {
           
         let listaFacturas;
         let listaproductos;
@@ -119,46 +122,89 @@ class Facturas extends Component {
 
         let nombresdeproductos;
 
+        let valorTotalfactura= 0;
+
 
 
 
         
         
         
-        listaFacturas = this.state.facturas.map((factura) => {
+        listaFacturas = this.state.facturas.map( (factura) => {
           
-
-          listaproductos= this.state.clientespedidos.filter(clientepedido => clientepedido.idclientes === factura.idclientes )
-          
+         
+          console.log(factura)
+          listaproductos=  this.state.clientespedidos.filter(clientepedido => clientepedido.idclientes === factura.idclientes)
           
            
 
          
 
-           productos= listaproductos.map((producto) => {
-            console.log(this.state.productos);
-            nombresdeproductos = this.state.productos.filter(product => product.idproductos == producto.pedidos[0].idproductos);
+           productos=   listaproductos.map( (producto) =>  {
+            
+             nombresdeproductos =  this.state.productos.filter(product => product.idproductos === producto.pedidos[0].idproductos);
             console.log(nombresdeproductos);
-            return (<>{nombresdeproductos[0].nombreproducto}</>)
-           })
 
-         
+            valorTotalfactura += (nombresdeproductos[0].precio *  producto.pedidos[0].cantidad)
+
             return (
-         <tr  className="columnaProduct">
-          <td >{factura.cliente.nombre + " " + factura.cliente.apellido}</td>
-          <td >{factura.idpedidos}</td>
-          <td> {productos}</td>
-          <td >{factura.valortotal}</td>
+
+          <tr  className="columnaProduct">
+
+
+      
+          <td >{nombresdeproductos[0].nombreproducto}</td>
+          <td >{nombresdeproductos[0].precio}</td>
+          <td> {producto.pedidos[0].cantidad}</td>
+          <td> { nombresdeproductos[0].precio *  producto.pedidos[0].cantidad}</td>
+          
+          
           
           <td ><button type="button" className="btn-editar"><ion-icon name="create-outline"></ion-icon></button></td>
           <td ><button type="button" className="btn-eliminar"><ion-icon name="trash-outline"></ion-icon></button></td>
         </tr>
+            
+            
+            )
+           })
+
+         
+            return (
+
+
+              <div className='cardfactura'>
+                <span className='nombrecliente'>cliente: {factura.cliente.nombre + " " + factura.cliente.apellido} </span>
+                
+                <table className='tablaProductos'>
+                <thead>
+                  <tr>
+                    <td>Nombre Producto</td>
+                    <td>precio unitario</td>
+                    <td>cantidad</td>
+                    <td>valor</td>
+                    <td>Editar</td>
+                    <td>Eliminar</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {productos}
+
+                </tbody>
+              </table>
+              <span>Valor total {valorTotalfactura} </span>
               
+              <span className='restaurar'> {valorTotalfactura = 0} </span>
+              </div>
+         
+         
                
               
               
              
             )
+            
+            
           });
     
     return (
@@ -166,30 +212,26 @@ class Facturas extends Component {
      
       
         
-        <div className="lista">
-              <div className="cardHeader">
-                <h2>
-                  Todos los Clientes
-                </h2>
-                <a href="/" className='btn'>Ver todos </a>
-              </div>
-              <table>
-                <thead>
-                  <tr>
-                  <td>Cliente</td>
-                    <td>Pedido</td>
-                    <td>valor total</td>
-                    
-                    <td>Editar</td>
-                    <td>Eliminar</td>
-                  </tr>
-                </thead>
-                <tbody>
+        <div className="contenedordefacturas">
+             
                   
                   {listaFacturas}
 
-                </tbody>
-              </table>
+
+                  <form>
+                     <label>cliente</label>
+                     <input type="number" />
+                     <label>producto</label>
+                     <input type="number" />
+                     <label>cantidad</label>
+                     <input type="number" />
+                     <button>añadir producto</button>
+
+                  </form>
+
+
+
+                
             </div>
             
       

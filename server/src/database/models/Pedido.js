@@ -7,7 +7,10 @@ module.exports = (sequelize,dataTypes) => {
             autoIncrement: true
         },
         idproductos: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER
+        },
+        cantidad: {
+            type: dataTypes.INTEGER
         },
         valorunitario: {
             type: dataTypes.REAL

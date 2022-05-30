@@ -6,6 +6,10 @@ import Clientes from './Clientes';
 
 
 
+
+
+
+
 class Crearcliente extends Component {
 
     constructor(props) {
@@ -21,7 +25,23 @@ class Crearcliente extends Component {
         this.crearcliente = this.crearcliente.bind(this);
        
       }
+
+      componentDidMount() {
+        console.log("me monte");
+        
     
+    
+    
+    
+    
+      }
+ 
+     
+        reloadapi(){
+         
+
+          this.clienteshijo.consumirApi();
+        }    
 
     apiPost(url, consecuencia) {
         fetch(url,{
@@ -71,7 +91,14 @@ class Crearcliente extends Component {
             }
          }).then(res=>res.json())
          .then(data => console.log(JSON.parse(data)))
-         .then( window.location.reload(true))
+
+         
+
+         
+         
+
+         
+         
 
         event.preventDefault();
       }
@@ -117,7 +144,7 @@ class Crearcliente extends Component {
          
       </div>
       </div>
-      <Clientes/>
+      <Clientes ref="clienteshijo"/>
       </div>
     
     )

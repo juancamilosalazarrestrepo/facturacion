@@ -110,11 +110,12 @@ try{
 apiCtrl.crearProducto= async (req,res)=>{
     try{
     
-        const { nombreproducto, descripcion, precio} = req.body;
+        const { nombreproducto, descripcion, precio,numerofactura} = req.body;
         await Producto.create({
             nombreproducto,
             descripcion,
-            precio //utilizar un convertidos de string a real
+            precio,
+            numerofactura //utilizar un convertidos de string a real
             
         });
         
@@ -126,6 +127,29 @@ apiCtrl.crearProducto= async (req,res)=>{
        
     
     }
+
+//----------------crear factura ------------------------
+
+    apiCtrl.crearFactura= async (req,res)=>{
+        try{
+        
+            const { idclientes,idpedidos, valortotal,numerofactura} = req.body;
+            await Factura.create({
+                idclientes,
+                idpedidos,
+                valortotal,
+                numerofactura //utilizar un convertidos de string a real
+                
+            });
+            
+            return res.send("correcto");
+        }catch (error) {
+            return res.send(error);
+        }
+            
+           
+        
+        }
 
 
    
