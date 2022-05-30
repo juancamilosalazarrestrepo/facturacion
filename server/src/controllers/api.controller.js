@@ -1,4 +1,4 @@
-const {Cliente,Producto,Factura,Pedido} = require('../database/models');
+const {Cliente,Producto,Factura,Pedido, Cliente_pedido} = require('../database/models');
 
 const apiCtrl = {}
 
@@ -60,6 +60,17 @@ apiCtrl.getPedidos= async (req,res)=>{
     );
     const pedidosJson = JSON.stringify(pedidos);
     res.json(pedidos);
+
+}
+
+apiCtrl.getClientePedido= async (req,res)=>{
+
+    const clientesPedidos = await Cliente_pedido.findAll({
+        include:[{association:"cliente"},{association:"pedidos"}]
+    }
+    );
+    const clientespedidosJson = JSON.stringify(clientesPedidos);
+    res.json(clientesPedidos );
 
 }
 

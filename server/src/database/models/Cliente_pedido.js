@@ -12,16 +12,42 @@ module.exports = (sequelize,dataTypes) => {
         idpedidos: {
             type: dataTypes.INTEGER
         },
-        
+        idfacturas:{
+            type: dataTypes.INTEGER
+        },
+        numerofactura:{
+            type: dataTypes.INTEGER
+        },
     };
     let config = {
-        FOREIGN_KEY_CHECKS: 0,
+        
         timestamps: false,
         deletedAt: false,
     }
 
     const Cliente_pedido = sequelize.define(alias,cols,config);
    
+    Cliente_pedido.associate = function(models) {
+        Cliente_pedido.belongsToMany(models.Cliente,{
+            as:'clientes',
+            through:'cliente_pedidos',
+            foreignKey:'idclientes',
+            otherKey:'idclientes',
+            timestamps:false,
+        }),
+        Cliente_pedido.belongsToMany(models.Pedido,{
+            as:'pedidos',
+            through:'cliente_pedidos',
+            foreignKey:'idpedidos',
+            otherKey:'idpedidos',
+            timestamps:false,
+        }),
+        Cliente_pedido.belongsTo(models.Cliente,{
+            as: "cliente",
+            foreignKey:"idclientes"
+         })
+        
+    }
    
 
     return Cliente_pedido;

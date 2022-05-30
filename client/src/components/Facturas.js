@@ -22,6 +22,18 @@ class Facturas extends Component {
           telefono:"",
     
           clientes: [],
+
+          idclientesCP: "",
+          idpedidosCP: "",
+          idfacturasCP: "",
+          numerofactura:"",
+          
+          clientespedidos: [],
+
+          productos: [],
+          nombreproducto: "",
+                  descripcion: "",
+                  precio: ""
     
     
     
@@ -49,6 +61,8 @@ class Facturas extends Component {
       consumirApi() {
         this.apiCall("http://localhost:3000/api/facturas", this.mostrarFacturas);
         this.apiCall("http://localhost:3000/api/", this.mostrarClientes);
+        this.apiCall("http://localhost:3000/api/pedidocliente", this.mostrarClientesPedidos);
+        this.apiCall("http://localhost:3000/api/productos", this.mostrarProductos);
       }
     
       mostrarFacturas = (data) => {
@@ -72,23 +86,68 @@ class Facturas extends Component {
         
         
             })}
+
+            mostrarClientesPedidos = (data3) => {
+              console.log("this is data"+data3)
+              this.setState({
+                clientespedidos:data3,
+                idclientesCP: data3[0].idclientes,
+                idpedidosCP: data3[0].idpedidos,
+                idfacturas: data3[0].idfacturas,
+                numerofactura:data3[0].numerofactura
+              })}
+
+              mostrarProductos = (data4) => {
+                console.log("this is data"+ data4)
+                this.setState({
+                  productos: data4,
+                  nombreproducto: data4[0].nombreproducto,
+                  descripcion: data4[0].descripcion,
+                  precio: data4[0].precio
+            
+            
+            
+                })}
     
 
     render() {
           
         let listaFacturas;
-        let listanombres;
+        let listaproductos;
+
+        let productos;
+
+        let nombresdeproductos;
+
+
+
+
         
         
         
         listaFacturas = this.state.facturas.map((factura) => {
-          let clienteelegido;
-          clienteelegido =this.state.clientes.filter(cliente => cliente.idclientes === 1)
-         console.log(factura)
+          
+
+          listaproductos= this.state.clientespedidos.filter(clientepedido => clientepedido.idclientes === factura.idclientes )
+          
+          
+           
+
+         
+
+           productos= listaproductos.map((producto) => {
+            console.log(this.state.productos);
+            nombresdeproductos = this.state.productos.filter(product => product.idproductos == producto.pedidos[0].idproductos);
+            console.log(nombresdeproductos);
+            return (<>{nombresdeproductos[0].nombreproducto}</>)
+           })
+
+         
             return (
          <tr  className="columnaProduct">
-          <td >{factura.cliente.nombre}</td>
+          <td >{factura.cliente.nombre + " " + factura.cliente.apellido}</td>
           <td >{factura.idpedidos}</td>
+          <td> {productos}</td>
           <td >{factura.valortotal}</td>
           
           <td ><button type="button" className="btn-editar"><ion-icon name="create-outline"></ion-icon></button></td>
